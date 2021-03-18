@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  web:
+    image: node:15
+    volumes:
+      - .:/stargrazer
+    restart: "no"
+    working_dir: /stargrazer
+    command: ["npm", "run", "start"]
+    ports:
+      - 80
+    networks:
+      default:
+      buoy:
+        aliases:
+          - stargrazer
+
+  node:
+    image: node:15
+    volumes:
+      - .:/stargrazer
+    restart: "no"
+    working_dir: /stargrazer
+    user: "${DOCKER_USER}"
+
+networks:
+  buoy:
+    external:
+      name: buoy
